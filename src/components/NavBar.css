@@ -1,0 +1,8 @@
+.navbar-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 20px;
+    background-color: rgb(205, 118, 64);
+}
