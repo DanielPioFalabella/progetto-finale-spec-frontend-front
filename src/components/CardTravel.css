@@ -1,0 +1,7 @@
+.card-travel {
+    flex-basis: calc((100% / 4) - 8px);
+    border: 1px solid rgb(212, 116, 0);
+    border-radius: 8px;
+    padding: 6px;
+    background-color: bisque;
+}
