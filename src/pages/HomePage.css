@@ -4,18 +4,53 @@
     min-height: 100vh;
 }
 
+.search-bar-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
 .search-bar {
-    min-width: 400px;
-    margin: 10px 30px;
+    min-width: 600px;
+    margin: 0px 30px;
     border: 1px solid rgb(218, 134, 32);
     border-radius: 4px;
     padding: 4px 6px;
 }
 
+.search-bar:focus {
+    outline: none;
+    border: 2px solid rgb(218, 134, 32);
+    box-shadow: 0px 0px 10px rgba(213, 90, 18, 0.3);
+}
+
 .card-travel-section {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 8px;
     width: 96%;
     margin: 0 auto;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        width: 100%;
+    }
+}
+
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    background-color: rgb(255, 196, 133);
+    box-shadow: 0px 0px 4px rgba(213, 90, 18, 0.3);
+}
+
+.btn:hover {
+    background-color: rgb(255, 155, 68);
+    color: white;
 }
