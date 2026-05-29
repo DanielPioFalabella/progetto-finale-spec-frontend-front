@@ -16,7 +16,7 @@ const ContinentModal = ({show, title, onClose, onSelectCategory}) => {
                     <option value="Oceania">Oceania</option>
                     <option value="Africa">Africa</option>
                 </select>
-                <button className="btn" onClick={onClose}>x</button>
+                <button className="btn" onClick={onClose}>Chiudi</button>
             </div>
         </div>,
         document.body

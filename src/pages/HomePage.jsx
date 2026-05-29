@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CardTravel from "../components/CardTravel"
 import ContinentModal from "../components/ContinentModal"
 import SortingModal from "../components/SortingModal"
 import "./HomePage.css"
 import { Link } from "react-router-dom"
+import WishlistContext from "../context/WishlistContext"
+import CompareModal from "../components/CompareModal"
+import { Section } from "lucide-react"
 
 const HomePage = () => {
     const [travels, setTravels] = useState([])
@@ -12,6 +15,8 @@ const HomePage = () => {
     const [showSortingModal, setShowSortingModal] = useState(false)
     const [selectedContinent, setSelectedContinent] = useState()
     const [sorting, setSorting] = useState()
+    const [showCompareModal, setShowCompareModal] = useState(false)
+    const [compareTravels, setCompareTravels] = useState([])
 
     const searchFilter = travels.filter(travel => {
         const travelText = travel.title
@@ -54,6 +59,20 @@ const HomePage = () => {
         getTravels()
     }, [])
 
+    const handleCompareTravels = (travel) => {
+        setCompareTravels(prev => {
+            const travelAlreadySelect = prev.find(t => t.id === travel.id)
+
+            if (travelAlreadySelect) {
+                return prev.filter(t => t.id !== travel.id)
+            } if (prev.length >= 2) {
+                return prev
+            } else {
+                return [...prev, travel]
+            }
+        })
+    }
+
     return (
         <div className="home-page">
             <div className="search-bar-section">
@@ -66,6 +85,7 @@ const HomePage = () => {
 
                 <button className="btn" onClick={() => setShowContinentModal(true)}>Continente</button>
                 <button className="btn" onClick={() => setShowSortingModal(true)}>Ordina</button>
+                <button className="btn" onClick={() => setShowCompareModal(true)}>Confronta</button>
             </div>
 
             <ContinentModal
@@ -80,15 +100,30 @@ const HomePage = () => {
                 onClose={() => setShowSortingModal(false)}
                 onSelect={(e) => setSorting(e.target.value)} />
 
+            <CompareModal
+                travels={travels}
+                title="Confronta quale viaggio fa al caso tuo!"
+                show={showCompareModal}
+                onClose={() => setShowCompareModal(false)}
+                onCompare={() => setShowCompareModal(false)}
+                onSelect={handleCompareTravels}
+            />
+
+            {compareTravels.length === 2 && (
+                <div className="compare-travel-section">
+                    {compareTravels.map(t => (
+                        <div className="travel-details-container">
+                            <CardTravel key={t.id} travel={t} />
+                        </div>
+                    ))}
+                </div>
+            )
+            }
+
             <div className="card-travel-section">
                 {searchFilter.map(travel => {
                     return (
-                        <Link key={travel.id} to={`/travels/${travel.id}`}>
-                            <CardTravel
-                                image={travel.image}
-                                title={travel.title}
-                                category={travel.category} />
-                        </Link>
+                        <CardTravel key={travel.id} travel={travel} />
                     )
                 })}
             </div>

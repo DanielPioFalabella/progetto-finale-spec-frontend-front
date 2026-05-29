@@ -10,7 +10,28 @@
 }
 
 .modal {
+    max-width: 300px;
     border-radius: 4px;
     padding: 10px;
-    background-color: rgb(255, 245, 229);
+    background-color: rgb(255, 255, 255);
+
+    select {
+        min-width: 100px;
+        margin-right: 90px;
+        border: 1px solid rgb(255, 94, 0);
+        border-radius: 4px;
+        padding: 4px 6px;
+        box-shadow: 0px 0px 6px rgba(255, 94, 0, 0.4);
+    }
+
+    select:focus {
+        outline: none;
+        border: 2px solid rgb(255, 94, 0);
+        box-shadow: 0px 0px 10px rgba(255, 94, 0, 0.4);
+    }
+
+    h3 {
+        color: rgb(255, 154, 96);
+        margin-bottom: 20px;
+    }
 }

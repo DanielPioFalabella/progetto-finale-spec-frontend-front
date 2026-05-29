@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import CardTravel from "../components/CardTravel"
+import CardTravelDetails from "../components/CardTravelDetails"
 import { useEffect, useState } from "react"
 import "./TravelDetails.css"
 
@@ -29,14 +29,7 @@ const TravelDetails = () => {
 
     return (
         <div className="travel-details-container">
-            <CardTravel 
-            image={travel.image}
-            title={travel.title}
-            category={travel.category}
-            description={travel.description}
-            days={travel.days}
-            price={travel.price}
-            rating={travel.rating}/>
+            <CardTravelDetails travel={travel}/>
         </div>
     )
 }
