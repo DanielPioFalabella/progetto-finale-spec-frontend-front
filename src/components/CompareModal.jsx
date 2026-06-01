@@ -23,8 +23,8 @@ const CompareModal = ({ title, show, onClose, onCompare, onSelect, travels }) =>
                     </ul>
                 </div>
 
-                <button className="btn" onClick={onCompare}>Confronta</button>
-                <button className="btn" onClick={onClose}>x</button>
+                <button className="btn btn-compare" onClick={onCompare}>Confronta</button>
+                <button className="btn btn-compare" onClick={onClose}>Chiudi</button>
             </div>
         </div>,
         document.body

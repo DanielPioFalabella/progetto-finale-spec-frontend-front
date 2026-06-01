@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import WishlistContext from "../context/WishlistContext"
 import CompareModal from "../components/CompareModal"
 import { Section } from "lucide-react"
+import CardTravelDetails from "../components/CardTravelDetails"
 
 const HomePage = () => {
     const [travels, setTravels] = useState([])
@@ -50,6 +51,7 @@ const HomePage = () => {
                     throw new Error(`errore http ${response.status}`)
                 }
                 const data = await response.json()
+
                 setTravels(data)
             } catch (err) {
                 console.error(err)
@@ -59,18 +61,34 @@ const HomePage = () => {
         getTravels()
     }, [])
 
-    const handleCompareTravels = (travel) => {
-        setCompareTravels(prev => {
-            const travelAlreadySelect = prev.find(t => t.id === travel.id)
+    const handleCompareTravels = async (travel) => {
+        try {
+            const response = await fetch(`http://localhost:3001/travels/${travel.id}`)
+
+            if (!response.ok) {
+                throw new Error(`HTTP Error ${response.status}`)
+            }
+
+            const data = await response.json()
+            console.log(data)
+
+            const fullTravel = data.travel
+
+            setCompareTravels(prev => {
+            const travelAlreadySelect = prev.find(t => t.id === fullTravel.id)
 
             if (travelAlreadySelect) {
-                return prev.filter(t => t.id !== travel.id)
+                return prev.filter(t => t.id !== fullTravel.id)
             } if (prev.length >= 2) {
                 return prev
             } else {
-                return [...prev, travel]
+                return [...prev, fullTravel]
             }
         })
+        } catch (err) {
+            console.error(err)
+        }
+        
     }
 
     return (
@@ -86,6 +104,7 @@ const HomePage = () => {
                 <button className="btn" onClick={() => setShowContinentModal(true)}>Continente</button>
                 <button className="btn" onClick={() => setShowSortingModal(true)}>Ordina</button>
                 <button className="btn" onClick={() => setShowCompareModal(true)}>Confronta</button>
+                <button className="btn" onClick={() => setCompareTravels([])}>Reset</button>
             </div>
 
             <ContinentModal
@@ -112,8 +131,16 @@ const HomePage = () => {
             {compareTravels.length === 2 && (
                 <div className="compare-travel-section">
                     {compareTravels.map(t => (
-                        <div className="travel-details-container">
-                            <CardTravel key={t.id} travel={t} />
+                        <div key={t.id} className="travel-details-container">
+                            <CardTravelDetails
+                                id={t.id}
+                                image={t.image}
+                                title={t.title}
+                                category={t.category}
+                                description={t.description}
+                                days={t.days}
+                                price={t.price}
+                                rating={t.rating} />
                         </div>
                     ))}
                 </div>
@@ -123,7 +150,9 @@ const HomePage = () => {
             <div className="card-travel-section">
                 {searchFilter.map(travel => {
                     return (
-                        <CardTravel key={travel.id} travel={travel} />
+                        <CardTravel
+                            key={travel.id}
+                            travel={travel} />
                     )
                 })}
             </div>

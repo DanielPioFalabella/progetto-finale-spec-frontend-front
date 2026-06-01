@@ -41,9 +41,9 @@
     }
 }
 
-.card-travel-section img {
+/* .card-travel-section img {
     width: 100px;
-}
+} */
 
 .btn {
     border: none;
@@ -58,3 +58,13 @@
     background-color: rgb(255, 154, 96);
     color: white;
 }
+
+.compare-travel-section {
+    display: flex;
+    align-items: stretch;
+}
+
+.travel-details-container {
+    flex-basis: 50%;
+}
+

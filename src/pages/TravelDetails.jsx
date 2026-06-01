@@ -25,11 +25,19 @@ const TravelDetails = () => {
         getTravel()
     }, [id])
 
-    if(!travel) return <p>Loading...</p>
+    if (!travel) return <p>Loading...</p>
 
     return (
         <div className="travel-details-container">
-            <CardTravelDetails travel={travel}/>
+            <CardTravelDetails
+                id={travel.id}
+                image={travel.image}
+                title={travel.title}
+                category={travel.category}
+                description={travel.description}
+                days={travel.days}
+                price={travel.price}
+                rating={travel.rating} />
         </div>
     )
 }

@@ -2,7 +2,7 @@ import { useContext } from "react"
 import WishlistContext from "../context/WishlistContext"
 import { Link } from "react-router-dom"
 import "./WishList.css"
-import CardTravel from "../components/CardTravel"
+import CardTravelDetails from "../components/CardTravelDetails"
 
 const Wishlist = () => {
     const { wishlist } = useContext(WishlistContext)
@@ -14,7 +14,16 @@ const Wishlist = () => {
     return (
         <div className="card-travel-section">
             {wishlist.map(travel => (
-                <CardTravel key={travel.id} travel={travel} />
+                <CardTravelDetails
+                key={travel.id}
+                id={travel.id}
+                image={travel.image}
+                title={travel.title}
+                category={travel.category}
+                description={travel.description}
+                days={travel.days}
+                price={travel.price}
+                rating={travel.rating} />
             ))}
         </div>
     )

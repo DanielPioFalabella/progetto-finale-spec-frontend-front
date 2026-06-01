@@ -3,28 +3,39 @@ import "./CardTravelDetails.css"
 import { Star } from 'lucide-react';
 import WishlistContext from "../context/WishlistContext";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 
-const CardTravel = ({ travel }) => {
+const CardTravelDetails = memo(({ id, title, category, country, continent, description, days, price, rating, image }) => {
     const { wishlist, toggleWishlist, isInWishlist } = useContext(WishlistContext)
 
-    return(
+    return (
         <div className="card-travel">
             <div className="travel-img">
-                <img src={travel.image} alt={travel.title} />
+                <img src={image} alt={title} />
             </div>
-            <div className="travel-text">
-                <Link to={`/travels/${travel.id}`}><h3>{travel.title}</h3></Link>
-                <p>{travel.category}</p>
-                <p>{travel.description}</p>
-                <p>{travel.days}</p>
-                <p>{travel.price}</p>
-                <p>{travel.rating}</p>
+            <div className="travel-text-details">
+                <div className="card-text">
+                    <Link to={`/travels/${id}`}><h3 className="title">{title}</h3></Link>
+                    <p><i>{category}</i></p>
+                    <p className="description">{description}</p>
+                    <p>notti: {days}</p>
+                    <p>prezzo: €{price}</p>
+                    <p>rating: {rating} <Star size={12} fill="currentcolor" /></p>
+                </div>
+
+                <div className="card-action">
+                    <button className=" btn-wishlist" onClick={() => toggleWishlist(
+                        { id, title, category, country, continent, description, days, price, rating, image }
+                    )}>{isInWishlist(
+                        { id, title, category, country, continent, description, days, price, rating, image }
+                    ) ? <Star fill="currentcolor" /> : <Star />}</button>
+                </div>
             </div>
-            
-            <button className=" btn-wishlist" onClick={() => toggleWishlist(travel)}>{isInWishlist(travel) ? <Star fill="currentcolor"/> : <Star />}</button>
+
+
         </div>
     )
-}
+})
 
-export default CardTravel
+export default CardTravelDetails
